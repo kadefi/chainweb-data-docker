@@ -34,9 +34,9 @@ ENV PG_VERSION=13 \
     NIX_PATH=nixpkgs=/root/.nix-defexpr/channels/nixpkgs:/root/.nix-defexpr/channels \
     NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
     PATH=/root/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-    CHAINWEB_HOST=localhost
-    CHAINWEB_P2P_PORT=1789
-    CHAINWEB_SERVICE_PORT=1848
+    CHAINWEB_HOST=localhost \
+    CHAINWEB_P2P_PORT=1789 \
+    CHAINWEB_SERVICE_PORT=1848 
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y acl sudo locales \
