@@ -11,6 +11,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -y \
  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
  && echo "deb http://apt.postgresql.org/pub/repos/apt focal-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
+ # Install Node resources
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash \
+    && apt-get install nodejs \
+    && npm install -g yarn
+
 RUN set -eux; \
 	groupadd -r postgres --gid=999; \
 	useradd -r -g postgres --uid=999 --home-dir=/var/lib/postgresql --shell=/bin/bash postgres; \
@@ -28,7 +33,10 @@ ENV PG_VERSION=13 \
     LOCALE_ARCHIVE=/usr/lib/locale/locale-archive \
     NIX_PATH=nixpkgs=/root/.nix-defexpr/channels/nixpkgs:/root/.nix-defexpr/channels \
     NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
-    PATH=/root/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    PATH=/root/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    CHAINWEB_HOST=localhost
+    CHAINWEB_P2P_PORT=1789
+    CHAINWEB_SERVICE_PORT=1848
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y acl sudo locales \
